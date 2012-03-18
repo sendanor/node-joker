@@ -1,0 +1,20 @@
+{
+  "author": "",
+  "name": "joker",
+  "version": "0.0.0",
+  "repository": {
+    "url": ""
+  },
+  "private": true,
+  "engines": {
+    "node": ">= 0.6.10"
+  },
+  "dependencies": {
+	"optimist": ">= 0.0.1",
+	"snippets": ">= 0.0.1",
+	"filedb": "https://github.com/jheusala/node-filedb/tarball/master",
+	"joker-dmapi": "https://github.com/jheusala/node-joker-dmapi/tarball/master"
+  },
+  "devDependencies": {},
+  "optionalDependencies": {}
+}
