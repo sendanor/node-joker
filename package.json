@@ -14,7 +14,7 @@
 	"optimist": ">= 0.0.1",
 	"snippets": ">= 0.0.1",
 	"filedb": "https://github.com/jheusala/node-filedb/tarball/master",
-	"joker-dmapi": "https://github.com/jheusala/node-joker-dmapi/tarball/master"
+	"joker-dmapi": ">= 0.0.1"
   },
   "devDependencies": {
      "snippets": "*",
