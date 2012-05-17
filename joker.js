@@ -18,6 +18,8 @@ var commands = module.exports = {},
 
 // FIXME: Change filedb so that it doesn't save backups or it can be opted out
 
+commands._opts = {'verbose': 0};
+
 /* Event when database becomes ready */
 db.on('ready', function() {
 	db.hostname = db.hostname || 'dmapi.joker.com';
@@ -44,6 +46,7 @@ commands.help = function() {
 	console.log('  config set KEY=VALUE  -- set configuration');
 	console.log('  status                -- get session status');
 	console.log('  login USER PW         -- login to DMAPI');
+	console.log('  logout                -- logout');
 	console.log('  query-domain-list     -- list domains');
 };
 
@@ -56,9 +59,11 @@ commands['status'] = function() {
 			console.log("Joker: online (" + Math.floor(58*60-seconds) + " seconds left)");
 		} else {
 			console.log("Joker: offline");
-			console.log('DEBUG: seconds = ' + seconds);
-			if(db && db.auth && db.auth.date) console.log('DEBUG: db.auth.date = ' + db.auth.date);
-			if(db && db.auth) console.log('DEBUG: db.auth = ' + db.auth);
+			if(commands._opts.verbose >= 1) {
+				console.log('DEBUG: seconds = ' + seconds);
+				if(db && db.auth && db.auth.date) console.log('DEBUG: db.auth.date = ' + db.auth.date);
+				if(db && db.auth) console.log('DEBUG: db.auth = ' + db.auth);
+			}
 		}
 	});
 };
@@ -76,12 +81,31 @@ commands['login'] = function(username, password) {
 			db.auth.id = res.auth_id;
 			db.commit(function(err) { if(err) console.log('error when saving data: ' + err);});
 			console.log('Logged in!');
-			console.log('DEBUG: auth_id = ' + res.auth_id);
+			if(commands._opts.verbose >= 1) {
+				console.log('DEBUG: auth_id = ' + res.auth_id);
+			}
 		});
 	});
 };
 
 /* logout -- */
+commands['logout'] = function() {
+	db.whenReady(function() {
+		dmapi.logout(function(err) { 
+			if(err) {
+				console.log('Error: ' + err);
+				return;
+			}
+			db.auth = undefined;
+			db.commit(function(err) { if(err) console.log('error when saving data: ' + err);});
+			console.log('Logged out!');
+			if(commands._opts.verbose >= 1) {
+				console.log('DEBUG: auth_id = ' + res.auth_id);
+			}
+		});
+	});
+};
+
 
 /* result-list -- */
 
