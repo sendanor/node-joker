@@ -20,5 +20,6 @@
      "snippets": "*",
      "easycli": "*"
   },
+  "bin": { "joker": "./joker.js" },
   "optionalDependencies": {}
 }
