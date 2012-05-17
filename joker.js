@@ -22,7 +22,7 @@ var commands = module.exports = {},
     foreach = require('snippets').foreach,
 	rpad = require('snippets').rpad,
     dmapi = require('joker-dmapi'),
-    cli = require('./cli.js');
+    cli = require('cli');
 
 commands._opts_ = {'verbose': 0};
 
@@ -80,7 +80,7 @@ commands['status'] = {
 				console.log("Joker: online (" + Math.floor(58*60-seconds) + " seconds left)");
 			} else {
 				console.log("Joker: offline");
-				if(commands._opts.verbose >= 1) {
+				if(commands._opts_.verbose >= 1) {
 					console.log('DEBUG: seconds = ' + seconds);
 					if(db && db.auth && db.auth.date) console.log('DEBUG: db.auth.date = ' + db.auth.date);
 					if(db && db.auth) console.log('DEBUG: db.auth = ' + db.auth);
@@ -106,7 +106,7 @@ commands['login'] = {
 				db.auth.id = res.auth_id;
 				db.commit(function(err) { if(err) console.error('error when saving data: ' + err);});
 				console.log('Logged in!');
-				if(commands._opts.verbose >= 1) {
+				if(commands._opts_.verbose >= 1) {
 					console.log('DEBUG: auth_id = ' + res.auth_id);
 				}
 			});
@@ -128,7 +128,7 @@ commands['logout'] = {
 				db.auth = undefined;
 				db.commit(function(err) { if(err) console.error('error when saving data: ' + err);});
 				console.log('Logged out!');
-				if(commands._opts.verbose >= 1) {
+				if(commands._opts_.verbose >= 1) {
 					console.log('DEBUG: auth_id = ' + res.auth_id);
 				}
 			});
