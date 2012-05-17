@@ -19,7 +19,12 @@ Simplest way to install is to use [npm](http://npmjs.org/), just simply `npm ins
 Usage
 -----
 
-* Login: `joker login USER PASSWORD`
-* Logout: `joker logout`
-* List domains: `joker domain list`
-* More help: `joker help`
+Login: `joker login USER PASSWORD`
+
+'''Please note:''' Writing your password on command line and using shared computer system might be a security risk.
+
+Logout: `joker logout`
+
+List domains: `joker domain list`
+
+More help: `joker help`
