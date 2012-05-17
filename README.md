@@ -21,7 +21,7 @@ Usage
 
 Login: `joker login USER PASSWORD`
 
-'''Please note:''' Writing your password on command line and using shared computer system might be a security risk.
+*Please note:* Writing your password on command line and using shared computer system might be a security risk.
 
 Logout: `joker logout`
 
