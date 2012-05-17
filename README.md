@@ -23,7 +23,7 @@ Usage
 
 `joker login USER PASSWORD`
 
-**Please note:** Writing your password on command line and using shared computer system might be a security risk.
+**Please note:** Writing your password on command line and using shared computer system might be a security risk. [Prompting it from the command line is on TODO list.]
 
 ### Logout
 
