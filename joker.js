@@ -77,7 +77,7 @@ commands['status'] = {
 			var now = new Date(),
 			    seconds = (db && db.auth && db.auth.date) ? (now.getTime() - db.auth.date) / 1000 : undefined;
 			if(db.auth && db.auth.id && db.auth.date && (seconds < 58*60 ) ) {
-				console.log("Joker: online (" + Math.floor(58*60-seconds) + " seconds left)");
+				console.log("Joker: online to " + db.auth.user +" (" + Math.floor(58*60-seconds) + " seconds left)");
 			} else {
 				console.log("Joker: offline");
 				if(commands._opts_.verbose >= 1) {
@@ -102,6 +102,7 @@ commands['login'] = {
 					return;
 				}
 				db.auth = {};
+				db.auth.user = username;
 				db.auth.date = (new Date()).getTime();
 				db.auth.id = res.auth_id;
 				db.commit(function(err) { if(err) console.error('error when saving data: ' + err);});
