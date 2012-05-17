@@ -22,7 +22,7 @@ var commands = module.exports = {},
     foreach = require('snippets').foreach,
 	rpad = require('snippets').rpad,
     dmapi = require('joker-dmapi'),
-    cli = require('cli');
+    easycli = require('easycli');
 
 commands._opts_ = {'verbose': 0};
 
@@ -48,7 +48,7 @@ db.on('ready', function() {
 /* Help command */
 commands.help = function(command) {
 	if(command && commands.hasOwnProperty(command)) {
-		cli.init_commands(commands[command], command);
+		easycli.init_commands(commands[command], command);
 		if(is_func(commands[command].help)) {
 			commands[command].help();
 		} else {
@@ -221,6 +221,6 @@ commands['echo'] = {
 }
 
 /* Run the framework */
-cli.run(commands);
+easycli.run(commands);
 
 /* EOF */
