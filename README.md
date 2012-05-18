@@ -45,6 +45,10 @@ Usage
 
 `joker domain renew --domain=example.com --expyear=2013`
 
+### Change domain contact
+
+`joker domain modify --domain=example.com --billing-c=CNET-634117`
+
 ### Grants
 
 Show grants for domain:
