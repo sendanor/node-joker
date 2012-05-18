@@ -11,14 +11,13 @@
     "node": ">= 0.6.10"
   },
   "dependencies": {
-	"optimist": ">= 0.0.1",
-	"snippets": ">= 0.0.1",
+	"optimist": ">= 0.3.4",
+	"snippets": ">= 0.0.6",
 	"filedb": "https://github.com/jheusala/node-filedb/tarball/master",
-	"joker-dmapi": ">= 0.0.1"
+	"joker-dmapi": ">= 0.0.3"
+    "easycli": ">= 0.0.2"
   },
   "devDependencies": {
-     "snippets": "*",
-     "easycli": "*"
   },
   "bin": { "joker": "./joker.js" },
   "optionalDependencies": {}
