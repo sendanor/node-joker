@@ -65,6 +65,7 @@ commands.help = function(command) {
 		console.log('   domain             Manage domains');
 		console.log('   whois              Get information about specified object');
 		console.log('   profile            Returns reseller profile data');
+		console.log('   grants             Manage grants');
 		console.log("");
 		console.log("See 'joker help COMMAND' for more information on a specific command.");
 	}
@@ -275,9 +276,78 @@ commands['profile'] = {
 /* TODO: domain-unlock --  */
 /* TODO: domain-set-property --  */
 /* TODO: domain-get-property --  */
+
+
+
 /* TODO: grants-list --  */
 /* TODO: grants-invite --  */
 /* TODO: grants-revoke --  */
+
+
+/* grants -- Manage grants */
+commands['grants'] = {
+	'__title__': "Manage grants",
+	'__desc__': "See 'grants list help' to list grants.",
+	
+	// grants-list
+	'list': {
+		'__title__': "List grants",
+		'__desc__': 'Get a list of active and pending grants.',
+		'__opts__': {
+			'domain': 'Domain name',
+			'showkey': 'Show invitation access key'
+		},
+		'_root_': function() {
+			var my = this;
+			var opts = my._opts_ || {};
+			db.whenReady(function() {
+			    dmapi.grantsList(opts, function(err, grants) {
+					if(err) {
+						console.error('Error: ' + err);
+						return;
+					}
+					console.log(grants);
+			    });
+			});
+		}
+	},
+
+	// grants-invite
+	'invite': {
+		'__title__': 'Grant access to another user',
+		'__desc__': 'Returns status only (ok or not). Email is sent if request was succesfull.\n\n'+
+		            'To internally transfer domain to another user (account) within Joker.com, please use the following command:\n\n'+
+		            '  joker grants invite --domain=example.com --email=dst-user-email@joker.com --role=@creator --client-uid=DST_UID\n\n'+
+		            'Obviously, you will need to know user ID of the user, who will receive the domain - simply providing email address is not sufficient.',
+		'__opts__': {
+			'domain': 'Domain name',
+			'email': 'Email of invitee',
+			'client-uid': 'Joker client-id of invitee - if provided, this will perform "silent" assignment: invitee does'+"n't"+
+			              ' need to "accept" invitation, but will be notified in any case.',
+			'role': 'Proposed role (@admin/@billing/@tech/@creator)',
+			'nickname': "Invitee's nickname. If omitted, email will be used as default nickname."
+		},
+		'_root_': function() {
+			var my = this;
+			var opts = my._opts_ || {};
+			db.whenReady(function() {
+			    dmapi.grantsInvite(opts, function(err, results) {
+					if(err) {
+						console.error('Error: ' + err);
+						return;
+					}
+					console.log('OK');
+					console.log('DEBUG: results = ' + results); 
+			    });
+			});
+		}
+	}
+};
+
+
+
+
+
 /* TODO: dns-zone-list --  */
 /* TODO: dns-zone-get --  */
 /* TODO: dns-zone-put --  */
