@@ -35,11 +35,25 @@ Usage
 
 ### List domain information (using live data from joker.com)
 
-`joker whois domain=sendanor.com`
+`joker whois --domain=sendanor.com`
 
 ### Get reseller profile data
 
 `joker profile`
+
+### Renew domain
+
+`joker domain renew --domain=sendanor.com --expyear=2013`
+
+### Grants
+
+Show grants for domain:
+
+`joker grants list --domain=sendanor.com`
+
+Add new grant:
+
+`joker grants invite --domain=example.com --role=@admin --email='hostmaster@example.com' --nickname='Hostmaster' --client-uid=1234`
 
 ### More help
 
