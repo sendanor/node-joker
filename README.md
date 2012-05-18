@@ -33,6 +33,14 @@ Usage
 
 `joker domain list`
 
+### List domain information (using live data from joker.com)
+
+`joker whois domain=sendanor.com`
+
+### Get reseller profile data
+
+`joker profile`
+
 ### More help
 
 `joker help`
