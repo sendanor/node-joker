@@ -64,6 +64,7 @@ commands.help = function(command) {
 		console.log('   logout             Logout from reseller interface');
 		console.log('   domain             Manage domains');
 		console.log('   whois              Get information about specified object');
+		console.log('   profile            Returns reseller profile data');
 		console.log("");
 		console.log("See 'joker help COMMAND' for more information on a specific command.");
 	}
@@ -180,10 +181,10 @@ commands['domain'] = {
 /* TODO: query-contact-list --  */
 /* TODO: query-ns-list, query-host-list --  */
 
-/* query-whois --  */
+/* query-whois -- */
 commands['whois'] = {
 	'__title__': "Get information about an object",
-	'__desc__': 'Returns information about specified object (similar to whois), in format "key: value". This request reflects actual (live) data in Joker.com database. Exactly one of those options must be specified. Only object registered with Joker.Com may be queried.',
+	'__desc__': 'Returns information about specified object (similar to whois), in format "key = value". This request reflects actual (live) data in Joker.com database. Exactly one of those options must be specified. Only object registered with Joker.Com may be queried.',
 	'__opts__': {
 		'domain': 'Domain name',
 		'contact': 'Contact handle',
@@ -206,7 +207,26 @@ commands['whois'] = {
 	}
 };
 
-/* TODO: query-profile --  */
+/* query-profile --  */
+commands['profile'] = {
+	'__title__': "Returns reseller profile data",
+	'__desc__': 'Returns reseller profile data in format "key = value". May be used to query account balance.',
+	'_root_': function() {
+		var my = this;
+		db.whenReady(function() {
+			dmapi.queryProfile(function(err, data) { 
+				if(err) {
+					console.error('Error: ' + err);
+					return;
+				}
+				foreach(data).each(function(value, key) {
+					console.log(key + ' = ' + value);
+				});
+			});
+		});
+	}
+};
+
 /* TODO: contact-create --  */
 /* TODO: contact-modify --  */
 /* TODO: contact-delete --  */
