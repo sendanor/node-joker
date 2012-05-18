@@ -63,12 +63,13 @@ commands.help = function(command) {
 		console.log('   login              Login to reseller interface');
 		console.log('   logout             Logout from reseller interface');
 		console.log('   domain             Manage domains');
+		console.log('   whois              Get information about specified object');
 		console.log("");
 		console.log("See 'joker help COMMAND' for more information on a specific command.");
 	}
 };
 
-/* List domains */
+/* status */
 commands['status'] = {
 	'__title__': "Get session status",
 	'__desc__': "Print status of joker.com's reseller session (DMAPI).",
@@ -90,7 +91,7 @@ commands['status'] = {
 	}
 };
 
-/* login -- */
+/* login */
 commands['login'] = {
 	'__title__': "Login to DMAPI",
 	'__desc__': "Login to joker.com's reseller interface (DMAPI).",
@@ -144,10 +145,12 @@ commands['logout'] = {
 
 /* result-delete --  */
 
-/* query-domain-list -- List domains */
+/* domain -- Manage domains */
 commands['domain'] = {
 	'__title__': "Manage domains",
 	'__desc__': "Try 'domain list' to list your domains.",
+	
+	// query-domain-list -- List domains
 	'list': {
 		'__title__': "List domains",
 		'__desc__': 'List of registered domains and their expiration dates (one per line, separated by whitespace). If "showstatus" is present, the the list will be with three columns, the last one showing domain status (like "lock,autorenew" etc - comma separated).',
@@ -159,8 +162,10 @@ commands['domain'] = {
 			'showgrants': 'Add additional column, showing domain grants, may be 0 or 1.'
 		},
 		'_root_': function() {
+			var my = this;
+			var opts = my._opts_ || {};
 			db.whenReady(function() {
-			    dmapi.queryDomainList({}, function(err, domains) {
+			    dmapi.queryDomainList(opts, function(err, domains) {
 					if(err) {
 						console.error('Error: ' + err);
 						return;
@@ -174,7 +179,33 @@ commands['domain'] = {
 
 /* TODO: query-contact-list --  */
 /* TODO: query-ns-list, query-host-list --  */
-/* TODO: query-whois --  */
+
+/* query-whois --  */
+commands['whois'] = {
+	'__title__': "Get information about an object",
+	'__desc__': 'Returns information about specified object (similar to whois), in format "key: value". This request reflects actual (live) data in Joker.com database. Exactly one of those options must be specified. Only object registered with Joker.Com may be queried.',
+	'__opts__': {
+		'domain': 'Domain name',
+		'contact': 'Contact handle',
+		'host': 'Host name'
+	},
+	'_root_': function() {
+		var my = this;
+		var opts = my._opts_ || {};
+		db.whenReady(function() {
+			dmapi.queryWhois(opts, function(err, data) { 
+				if(err) {
+					console.error('Error: ' + err);
+					return;
+				}
+				foreach(data).each(function(value, key) {
+					console.log(key + ' = ' + value);
+				});
+			});
+		});
+	}
+};
+
 /* TODO: query-profile --  */
 /* TODO: contact-create --  */
 /* TODO: contact-modify --  */
