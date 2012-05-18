@@ -1,7 +1,7 @@
 {
   "author": "Jaakko-Heikki Heusala <jheusala@iki.fi> (http://www.jhh.me)",
   "name": "joker",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "homepage": "http://github.com/jheusala/node-joker",
   "repository": {
     "type": "git",
@@ -14,7 +14,7 @@
 	"optimist": ">= 0.3.4",
 	"snippets": ">= 0.0.6",
 	"filedb": "https://github.com/jheusala/node-filedb/tarball/master",
-	"joker-dmapi": ">= 0.0.3",
+	"joker-dmapi": ">= 0.0.4",
     "easycli": ">= 0.0.2"
   },
   "devDependencies": {
