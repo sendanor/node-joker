@@ -35,7 +35,7 @@ Usage
 
 ### List domain information (using live data from joker.com)
 
-`joker whois --domain=sendanor.com`
+`joker whois --domain=example.com`
 
 ### Get reseller profile data
 
@@ -43,13 +43,13 @@ Usage
 
 ### Renew domain
 
-`joker domain renew --domain=sendanor.com --expyear=2013`
+`joker domain renew --domain=example.com --expyear=2013`
 
 ### Grants
 
 Show grants for domain:
 
-`joker grants list --domain=sendanor.com`
+`joker grants list --domain=example.com`
 
 Add new grant:
 
