@@ -53,7 +53,8 @@ Show grants for domain:
 
 Add new grant:
 
-`joker grants invite --domain=example.com --role=@admin --email='hostmaster@example.com' --nickname='Hostmaster' --client-uid=1234`
+`joker grants invite --domain=example.com --role=@admin --email='hostmaster@example.com' 
+   --nickname='Hostmaster' --client-uid=1234`
 
 ### More help
 
