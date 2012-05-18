@@ -175,6 +175,36 @@ commands['domain'] = {
 			    });
 			});
 		}
+	},
+
+	// domain-renew
+	'renew': {
+		'__title__': "Renew domain",
+		'__desc__': 'With this command you can renew the domain. Please be aware that all renewals are not refundable.\n\n'+
+		            'IMPORTANT: Please note that registration period is in MONTHS, NOT YEARS!\n\n'+
+		            '"expyear" is a safe option which can be used instead of "period" to renew domain till specified year (not longer). '+
+					'If you use "period", and by mistake send the request more than once, domain will be renewed again, while with "expyear", '+
+					'it will not be renewed if ' + "it's" + ' expiration year is greater or equals to specified.\n\n'+
+		            'Only one of "period" or "expyear" may be used, but not both.\n\n'+
+					'Please note: Successful execution does not always mean the domain really was renewed. Check "joker result".',
+		'__opts__': {
+			'domain': 'Domain name to renew',
+			'period': 'Renewal period in months (not in years!)',
+			'expyear': 'Wanted expiration year'
+		},
+		'_root_': function() {
+			var my = this;
+			var opts = my._opts_ || {};
+			db.whenReady(function() {
+			    dmapi.domainRenew(opts, function(err) {
+					if(err) {
+						console.error('Error: ' + err);
+						return;
+					}
+					console.log('Domain renewed successfully.');
+			    });
+			});
+		}
 	}
 };
 
