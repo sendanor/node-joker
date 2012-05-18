@@ -206,6 +206,53 @@ commands['domain'] = {
 			    });
 			});
 		}
+	},
+
+	// domain-modify
+	'modify': {
+		'__title__': "Modify domain data",
+		'__desc__': 'With this command you can modify contact handles for the domain, list of nameservers or DNSSEC parameters (for DNSSEC enabled domains).\n\n'+
+					'If specific value is not present, it will not be touched. Modification of nameservers or DNSSEC parameters will replace currently defined set of DNSSEC keys or nameservers.\n\n'+
+					'NOTE: DNSSEC parameters (ds-N) must be specified in order (ds-1, ds-2 etc), and due to techinical limitations this is impossible to modify only specific key - they must be set all at once. This means that any request to modify DNSSEC records will *replace* existing keys with only those which are provided!\n\n'+
+					'Example for adding one key (and enabling DNSSEC):\n\n'+
+					'   joker domain modify --domain=example.com --dnssec=1 --ds-1=9934:8:1:C4BF75B16AF82888B61E28951BEF27804B60D968\n\n'+
+					'Example for removing DNSSEC information:\n\n'+
+					'   joker domain modify --domain=example.com --dnssec=0\n\n'+
+					'NOTE: You have to have your own nameservice somewhere else to support DNSSEC, if you use Joker.com nameservice, DNSSEC will not be provided!\n\n'+
+					'ds-N: List of DNSSEC parameters for DNSSEC enabled domains\n' +
+					'      For com/net/org/tv/cc each entry has format:'+
+					'      	   tag:alg:digest-type:digest'+
+					'      For de:'+
+					'          protocol:alg:flags:pubkey-base64',
+		'__opts__': {
+			'domain': 'Domain to modify',
+			'billing-c': 'New billing contact handle',
+			'admin-c': 'New administrative contact handle',
+			'tech-c': 'New technical contact handle',
+			'ns-list': 'List of new nameservers (it will _replace_ existing nameservers!)',
+			'registrar-tag': 'Ragistrar tag, also known as "Membership token", which can be set/changed on .XXX domains',
+		    'dnssec': 'If specified, allows setting or removal of DNSSEC keys for domain. If not specified, DNSSEC records '+
+			          'will not be changed. Value of "0" will remove DNSSEC, value of "1" will add DNSSEC (and ds-N parameters must be provided)',
+			'ds-1': 'DNSSEC param 1',
+			'ds-2': 'DNSSEC param 2',
+			'ds-3': 'DNSSEC param 3',
+			'ds-4': 'DNSSEC param 4',
+			'ds-5': 'DNSSEC param 5',
+			'ds-6': 'DNSSEC param 6'
+		},
+		'_root_': function() {
+			var my = this;
+			var opts = my._opts_ || {};
+			db.whenReady(function() {
+			    dmapi.domainModify(opts, function(err) {
+					if(err) {
+						console.error('Error: ' + err);
+						return;
+					}
+					console.log('Request sent successfully.');
+			    });
+			});
+		}
 	}
 };
 
