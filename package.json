@@ -1,7 +1,7 @@
 {
   "author": "Jaakko-Heikki Heusala <jheusala@iki.fi> (http://www.jhh.me)",
   "name": "joker",
-  "version": "1.0.0",
+  "version": "0.9.0",
   "homepage": "http://github.com/jheusala/node-joker",
   "repository": {
     "type": "git",
