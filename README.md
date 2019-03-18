@@ -4,8 +4,6 @@ node-joker
 
 CLI utility for Joker.com's Resellers (DMAPI).
 
-It's still under heavy development and does not support everything yet.
-
 License
 -------
 
